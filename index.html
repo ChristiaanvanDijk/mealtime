@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)file:///C:/Users/chris/Downloads/bario_team_briefing.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bario — Strategic Briefing</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0f0f0e;
+    --surface: #1a1a18;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #e8e6df;
+    --muted: #8a8880;
+    --dim: #555450;
+    --accent: #c8a96e;
+    --accent2: #7eb89a;
+    --accent3: #e07b5a;
+    --good: #7eb89a;
+    --warn: #c8a96e;
+    --bad: #e07b5a;
+    --good-bg: rgba(126,184,154,0.12);
+    --warn-bg: rgba(200,169,110,0.12);
+    --bad-bg: rgba(224,123,90,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15,15,14,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; gap: 0;
+    height: 52px;
+  }
+  .nav-brand {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--accent);
+    margin-right: 2.5rem;
+    flex-shrink: 0;
+  }
+  .nav-links { display: flex; gap: 0; overflow-x: auto; }
+  .nav-link {
+    font-size: 12px; font-weight: 400; letter-spacing: .04em;
+    color: var(--muted); padding: 0 14px; height: 52px;
+    display: flex; align-items: center; cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+    white-space: nowrap; text-decoration: none;
+  }
+  .nav-link:hover { color: var(--text); }
+  .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 120px 2rem 80px;
+    max-width: 860px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: .12em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 1.25rem;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    line-height: 1.1; color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-body {
+    font-size: 17px; color: var(--muted);
+    max-width: 580px; line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+  .hero-meta {
+    display: flex; gap: 2rem; flex-wrap: wrap;
+    font-size: 12px; color: var(--dim);
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .hero-meta strong { color: var(--muted); font-weight: 400; }
+
+  /* SECTIONS */
+  .section {
+    max-width: 860px; margin: 0 auto;
+    padding: 0 2rem 100px;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  .section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-header {
+    display: flex; align-items: baseline; gap: 1rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 48px; color: var(--border2);
+    line-height: 1; flex-shrink: 0;
+  }
+  .section-info { flex: 1; }
+  .section-label {
+    font-size: 10px; font-weight: 500; letter-spacing: .1em;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 4px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px; color: var(--text); line-height: 1.2;
+  }
+
+  /* PROSE */
+  .prose { font-size: 15px; color: var(--muted); line-height: 1.8; }
+  .prose p { margin-bottom: 1rem; }
+  .prose strong { color: var(--text); font-weight: 500; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: .75rem;
+  }
+  .card-title {
+    font-size: 13px; font-weight: 500; color: var(--text);
+    margin-bottom: 6px;
+  }
+  .card-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+  @media (max-width: 640px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  /* METRIC */
+  .metric {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+  }
+  .metric-val { font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .metric-lbl { font-size: 11px; color: var(--muted); line-height: 1.4; }
+  .metric-val.good { color: var(--good); }
+  .metric-val.warn { color: var(--warn); }
+  .metric-val.bad  { color: var(--bad); }
+
+  /* RISK PILL */
+  .pill {
+    display: inline-block; font-size: 10px; font-weight: 500;
+    padding: 2px 9px; border-radius: 20px; letter-spacing: .03em;
+  }
+  .pill-good { background: var(--good-bg); color: var(--good); }
+  .pill-warn { background: var(--warn-bg); color: var(--warn); }
+  .pill-bad  { background: var(--bad-bg);  color: var(--bad); }
+  .pill-neu  { background: rgba(255,255,255,0.06); color: var(--muted); }
+
+  /* ACCORDION */
+  .accordion { margin-bottom: .5rem; }
+  .acc-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 1.25rem; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; transition: border-color .2s, background .2s;
+    user-select: none;
+  }
+  .acc-header:hover { border-color: var(--border2); background: var(--surface2); }
+  .acc-header.open { border-radius: 10px 10px 0 0; border-color: var(--border2); }
+  .acc-title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .acc-badge { display: flex; align-items: center; gap: 8px; }
+  .acc-icon {
+    width: 18px; height: 18px; border-radius: 50%;
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: var(--muted);
+    transition: transform .25s;
+  }
+  .acc-header.open .acc-icon { transform: rotate(45deg); }
+  .acc-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height .3s ease;
+    background: var(--surface);
+    border: 1px solid var(--border2); border-top: none;
+    border-radius: 0 0 10px 10px;
+  }
+  .acc-body.open { max-height: 600px; }
+  .acc-inner { padding: 1rem 1.25rem; font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .acc-inner strong { color: var(--text); font-weight: 500; }
+
+  /* TABS */
+  .tab-bar { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .tab-btn {
+    font-size: 12px; font-weight: 400; padding: 6px 14px;
+    border-radius: 20px; cursor: pointer;
+    border: 1px solid var(--border2);
+    background: transparent; color: var(--muted);
+    transition: all .15s;
+  }
+  .tab-btn:hover { color: var(--text); border-color: var(--border2); }
+  .tab-btn.active { background: var(--accent); color: #0f0f0e; border-color: var(--accent); font-weight: 500; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* VERDICT */
+  .verdict {
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 12px; font-weight: 500; line-height: 1.5;
+    margin-top: 1rem;
+  }
+  .verdict.good { background: var(--good-bg); color: var(--good); }
+  .verdict.warn { background: var(--warn-bg); color: var(--warn); }
+  .verdict.bad  { background: var(--bad-bg);  color: var(--bad); }
+
+  /* KV TABLE */
+  .kv-list { margin-bottom: 1rem; }
+  .kv-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 12px; padding: 5px 0; gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .kv-row:last-child { border-bottom: none; }
+  .kv-k { color: var(--muted); flex: 1; }
+  .kv-v { font-weight: 500; text-align: right; }
+  .kv-v.good { color: var(--good); }
+  .kv-v.warn { color: var(--warn); }
+  .kv-v.bad  { color: var(--bad); }
+  .kv-v.neu  { color: var(--text); }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+  /* PHASE TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item { display: flex; gap: 1.25rem; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; width: 28px; flex-shrink: 0; }
+  .tl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .tl-dot.good { background: var(--good); }
+  .tl-dot.warn { background: var(--warn); }
+  .tl-dot.bad  { background: var(--bad); }
+  .tl-line { flex: 1; width: 1px; background: var(--border); margin: 4px 0; }
+  .tl-right { padding-bottom: 24px; flex: 1; }
+  .tl-phase { font-size: 10px; font-weight: 500; letter-spacing: .07em; color: var(--dim); text-transform: uppercase; margin-bottom: 3px; }
+  .tl-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .tl-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* SLIDERS */
+  .slider-group { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+  .slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .slider-label { font-size: 11px; color: var(--muted); width: 160px; flex-shrink: 0; }
+  .slider-row input[type=range] {
+    flex: 1; height: 3px; background: var(--border2);
+    border-radius: 2px; outline: none; cursor: pointer;
+    -webkit-appearance: none;
+  }
+  .slider-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 14px; height: 14px;
+    border-radius: 50%; background: var(--accent); cursor: pointer;
+  }
+  .slider-val { font-size: 13px; font-weight: 500; color: var(--text); min-width: 56px; text-align: right; }
+  .result-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    margin-top: 1rem; padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .result-card { text-align: center; }
+  .result-val { font-size: 18px; font-weight: 500; }
+  .result-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+  /* COUNTRY GRID */
+  .country-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+  @media (max-width: 640px) { .country-grid { grid-template-columns: 1fr; } }
+  .country-card {
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 1rem; cursor: pointer;
+    transition: border-color .2s, background .2s;
+  }
+  .country-card:hover { border-color: var(--border2); background: var(--surface); }
+  .country-card.active { border-color: var(--accent); background: rgba(200,169,110,0.06); }
+  .cc-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .cc-sub { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+
+  /* MOAT BARS */
+  .moat-item { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+  .moat-header { display: flex; justify-content: space-between; align-items: center; }
+  .moat-name { font-size: 12px; font-weight: 500; color: var(--text); }
+  .moat-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .moat-fill { height: 100%; border-radius: 2px; transition: width .6s ease; }
+
+  /* SCROLL INDICATOR */
+  .scroll-top {
+    position: fixed; bottom: 2rem; right: 2rem;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; opacity: 0; transition: opacity .3s;
+    color: var(--muted); font-size: 16px;
+    z-index: 50;
+  }
+  .scroll-top.visible { opacity: 1; }
+  .scroll-top:hover { background: var(--surface2); }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 1rem; }
+  th { text-align: left; color: var(--dim); font-weight: 500; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; padding: 6px 10px; border-bottom: 1px solid var(--border2); }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; line-height: 1.4; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { color: var(--text); font-weight: 500; }
+
+  /* CALLOUT */
+  .callout {
+    border-left: 3px solid var(--accent);
+    padding: .875rem 1.25rem;
+    background: rgba(200,169,110,0.06);
+    border-radius: 0 8px 8px 0;
+    font-size: 13px; color: var(--muted);
+    line-height: 1.65; margin: 1.25rem 0;
+  }
+  .callout strong { color: var(--text); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    max-width: 860px; margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--dim);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Bario</div>
+  <div class="nav-links">
+    <a class="nav-link" href="file:///C:/Users/chris/Downloads/bario_team_briefing.html#concept" onclick="setActive(this)">Concept</a>
+    <a class="nav-link" href="file:///C:/Users/chris/Downloads/bario_team_briefing.html#risks" onclick="setActive(this)">Stress test</a>
+    <a class="nav-link" href="file:///C:/Users/chris/Downloads/bario_team_briefing.html#economics" onclick="setActive(this)">Economics</a>
+    <a class="nav-link active" href="file:///C:/Users/chris/Downloads/bario_team_briefing.html#roadmap" onclick="setActive(this)">Roadmap</a>
+    <a class="nav-link" href="file:///C:/Users/chris/Downloads/bario_team_briefing.html#international" onclick="setActive(this)">International</a>
+    <a class="nav-link" href="file:///C:/Users/chris/Downloads/bario_team_briefing.html#defensibility" onclick="setActive(this)">Defensibility</a>
+    <a class="nav-link" href="file:///C:/Users/chris/Downloads/bario_team_briefing.html#pos" onclick="setActive(this)">POS &amp; loyalty</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Strategic briefing — internal document</div>
+  <h1 class="hero-title">Building <em>Bario</em> — the case, the risks, and the path</h1>
+  <p class="hero-body">A structured overview of the Bario business model: what it is, where it breaks, what the economics look like, and how to build something defensible. Prepared for team review.</p>
+  <div class="hero-meta">
+    <span><strong>Model:</strong> Bar food ordering platform</span>
+    <span><strong>Primary market:</strong> Netherlands → Belgium → Europe</span>
+    <span><strong>ARR target:</strong> €1M (NL) as first milestone</span>
+    <span><strong>Status:</strong> Pre-pilot</span>
+  </div>
+</div>
+
+<!-- 1. CONCEPT -->
+<section class="section visible" id="concept">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-info">
+      <div class="section-label">What we're building</div>
+      <div class="section-title">The Bario concept</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>Bario connects bars and cafés that have no kitchen to nearby restaurants through a simple, structured ordering flow — letting guests order dinner without leaving the venue, and letting bars increase dwell time and drink revenue without running a kitchen.</p>
+  </div>
+
+  <div class="grid-3" style="margin: 1.5rem 0">
+    <div class="card">
+      <div class="card-title">For bars &amp; cafés</div>
+      <div class="card-body">Increase guest dwell time and drink revenue by offering food without kitchen complexity or staffing cost.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">For guests</div>
+      <div class="card-body">Order dinner without leaving the venue. Scan a QR code, choose a time slot, food arrives at the bar.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">For restaurants</div>
+      <div class="card-body">Generate incremental orders during off-peak hours with predictable, batched demand and no marketing cost.</div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-bottom:.75rem">How it works</div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-left"><div class="tl-dot good"></div><div class="tl-line"></div></div><div class="tl-right"><div class="tl-phase">Step 1</div><div class="tl-title">QR code on the table</div><div class="tl-body">Physical menu cards with a QR code sit on every table in the bar. No app download required.</div></div></div>
+    <div class="tl-item"><div class="tl-left"><div class="tl-dot good"></div><div class="tl-line"></div></div><div class="tl-right"><div class="tl-phase">Step 2</div><div class="tl-title">Guest selects a time slot</div><div class="tl-body">Predefined delivery slots (18:00, 19:00, 20:00, 21:00) — each linked to a selected nearby restaurant.</div></div></div>
+    <div class="tl-item"><div class="tl-left"><div class="tl-dot good"></div><div class="tl-line"></div></div><div class="tl-right"><div class="tl-phase">Step 3</div><div class="tl-title">Orders are batched</div><div class="tl-body">Orders are aggregated per slot and sent to the restaurant as a single batch — predictable, efficient.</div></div></div>
+    <div class="tl-item"><div class="tl-left"><div class="tl-dot good"></div></div><div class="tl-right"><div class="tl-phase">Step 4</div><div class="tl-title">Delivery to the bar</div><div class="tl-body">Meals are delivered at fixed times. Bar staff distribute to guests by name or identifier.</div></div></div>
+  </div>
+
+  <div class="callout"><strong>Parent company context:</strong> Bario is a spin-off of Mealtime, a platform that simplifies group meal ordering by connecting organisers with multiple food suppliers. Bario applies the same coordination logic to the bar occasion specifically.</div>
+
+  <div class="section-label" style="margin-bottom:.75rem">Revenue model</div>
+  <div class="kv-list card">
+    <div class="kv-row"><span class="kv-k">Commission per order</span><span class="kv-v warn">15% of order value</span></div>
+    <div class="kv-row"><span class="kv-k">Fixed fee per guest</span><span class="kv-v warn">€0.50</span></div>
+    <div class="kv-row"><span class="kv-k">Combined revenue at €10 avg spend</span><span class="kv-v neu">€2.00 per guest</span></div>
+    <div class="kv-row"><span class="kv-k">Venue SaaS fee (proposed Phase 1)</span><span class="kv-v good">€49–79 / month</span></div>
+    <div class="kv-row"><span class="kv-k">Ops model</span><span class="kv-v neu">1 hire per 75–100 venues</span></div>
+  </div>
+</section>
+
+<!-- 2. STRESS TEST -->
+<section class="section visible" id="risks">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-info">
+      <div class="section-label">Where it breaks</div>
+      <div class="section-title">Stress test — the hard questions</div>
+    </div>
+  </div>
+
+  <div class="prose"><p>These are the questions an investor would push on, and the honest answers. Expand each to see the risk and proposed resolution.</p></div>
+  <div style="margin-top:1.25rem"></div>
+
+  <div id="risk-accordions">
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span class="acc-title">Unit economics are brutally thin at base assumptions</span>
+        <div class="acc-badge"><span class="pill pill-bad">Critical</span><div class="acc-icon">+</div></div>
+      </div>
+      <div class="acc-body"><div class="acc-inner"><strong>The problem:</strong> At €2.00/guest and 30 guests/week, each venue generates ~€258/month. You need 325 venues just to reach €1M ARR — before any ops, tech, or marketing cost. <strong>The resolution:</strong> Two levers together fix it — 55 guests/week + €14 avg spend pushes each venue to €530+/month, cutting the venue count needed nearly in half. Target bars where the average guest already spends €14+ (cocktail bars, premium cafés) rather than student venues.</div></div>
+    </div>
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span class="acc-title">You don't control the critical experience</span>
+        <div class="acc-badge"><span class="pill pill-bad">Critical</span><div class="acc-icon">+</div></div>
+      </div>
+      <div class="acc-body"><div class="acc-inner"><strong>The problem:</strong> The meal arrives at the bar. Bar staff distribute it. The restaurant cooked it. You own the QR code. If food is late, cold, or wrong — the guest blames the experience and the bar blames Bario. You have operational responsibility but no operational control. <strong>The resolution:</strong> Contractual SLAs with restaurants (late by &gt;15min = partial refund from restaurant). A reliability score per restaurant visible to you. Guest feedback after every order — one question. Restaurants below threshold get replaced, not managed.</div></div>
+    </div>
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span class="acc-title">The bar has no skin in the game</span>
+        <div class="acc-badge"><span class="pill pill-warn">Important</span><div class="acc-icon">+</div></div>
+      </div>
+      <div class="acc-body"><div class="acc-inner"><strong>The problem:</strong> Bars don't pay you and don't actively sell. They put out a card and that's it. No financial incentive means passive participation, invisible menu cards, and zero-cost churn. <strong>The resolution:</strong> Revenue share of €0.50–1.00 per meal turns bars from passive hosts into active promoters. Combined with a SaaS fee (€49–79/month), bars have both an incentive and a commitment. Switching cost goes from zero to meaningful.</div></div>
+    </div>
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span class="acc-title">The time slot model creates abandonment</span>
+        <div class="acc-badge"><span class="pill pill-warn">Important</span><div class="acc-icon">+</div></div>
+      </div>
+      <div class="acc-body"><div class="acc-inner"><strong>The problem:</strong> Someone who arrives at 19:15 just missed the slot and waits until 20:00 — or leaves. In a social setting, one frustrated experience spreads quickly. <strong>The resolution:</strong> Rolling slot model: order by :45 past the hour, delivery at the next full hour. Preserves the batching model while eliminating the hard cutoff. Test this with a Typeform edit before building any product.</div></div>
+    </div>
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span class="acc-title">Density is a prerequisite, not an outcome</span>
+        <div class="acc-badge"><span class="pill pill-warn">Important</span><div class="acc-icon">+</div></div>
+      </div>
+      <div class="acc-body"><div class="acc-inner"><strong>The problem:</strong> The model only works if there's a nearby restaurant willing to partner, in a neighbourhood with enough bars to make restaurant partnerships worthwhile, with enough guests per venue to justify coordination. A three-sided cold start problem. <strong>The resolution:</strong> Start in one hyper-dense neighbourhood. Amsterdam's Jordaan, Pijp, or Leidseplein areas have the bar density and walkability required. Get 8–10 bars and 2 restaurants operational within 400m before considering anywhere else.</div></div>
+    </div>
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span class="acc-title">Differentiation is thin once it works</span>
+        <div class="acc-badge"><span class="pill pill-warn">Important</span><div class="acc-icon">+</div></div>
+      </div>
+      <div class="acc-body"><div class="acc-inner"><strong>The problem:</strong> If the model gains traction, what stops Thuisbezorgd from launching a "bar delivery" vertical? They have restaurant relationships, consumer apps, and delivery infrastructure. <strong>The resolution:</strong> See Section 06 — Defensibility. The short version: exclusivity contracts with bars (signed before you're visible enough to attract platform attention), demand data that compounds with every order, and a POS integration that makes Bario operational infrastructure rather than a feature layer.</div></div>
+    </div></div>
+</section>
+
+<!-- 3. ECONOMICS -->
+<section class="section visible" id="economics">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-info">
+      <div class="section-label">The numbers</div>
+      <div class="section-title">Unit economics — interactive model</div>
+    </div>
+  </div>
+
+  <div class="prose"><p>Adjust the sliders to model different scenarios. The economics update live across all metrics.</p></div>
+
+  <div class="slider-group" style="margin-top:1.5rem">
+    <div class="slider-row"><span class="slider-label">Guests / bar / week</span><input type="range" min="10" max="120" step="5" value="30" id="sl-guests" oninput="updateEcon()"><span class="slider-val" id="sv-guests">35</span></div>
+    <div class="slider-row"><span class="slider-label">Avg spend / guest (€)</span><input type="range" min="5" max="30" step="1" value="10" id="sl-spend" oninput="updateEcon()"><span class="slider-val" id="sv-spend">€10</span></div>
+    <div class="slider-row"><span class="slider-label">Commission rate (%)</span><input type="range" min="5" max="30" step="1" value="15" id="sl-pct" oninput="updateEcon()"><span class="slider-val" id="sv-pct">15%</span></div>
+    <div class="slider-row"><span class="slider-label">Fixed fee / guest (€)</span><input type="range" min="0" max="3" step="0.25" value="0.5" id="sl-fixed" oninput="updateEcon()"><span class="slider-val" id="sv-fixed">€0.50</span></div>
+    <div class="slider-row"><span class="slider-label">SaaS fee / venue (€/mo)</span><input type="range" min="0" max="149" step="10" value="0" id="sl-saas" oninput="updateEcon()"><span class="slider-val" id="sv-saas">€0</span></div>
+    <div class="result-row" id="econ-results"><div class="result-card"><div class="result-val warn">€2.00</div><div class="result-lbl">Revenue / guest</div></div><div class="result-card"><div class="result-val warn">€303</div><div class="result-lbl">Revenue / venue / month</div></div><div class="result-card"><div class="result-val good">€225</div><div class="result-lbl">Net contribution / venue</div></div><div class="result-card"><div class="result-val good">275 venues</div><div class="result-lbl">15% of NL market for €1M ARR</div></div></div>
+  </div>
+
+  <div class="section-label" style="margin-bottom:.75rem">Minimum viable targets</div>
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-title">Venue floor <span class="pill pill-warn" style="margin-left:6px">Threshold 1</span></div>
+      <div class="card-body">Minimum <strong style="color:var(--text)">€400/venue/month</strong> to cover variable costs and ops allocation. Requires ≥50 guests/week or ≥€14 avg spend at 30 guests.</div>
+    </div>
+    <div class="card" style="border-color: rgba(200,169,110,0.3)">
+      <div class="card-title">City breakeven <span class="pill pill-good" style="margin-left:6px">Target</span></div>
+      <div class="card-body">One ops hire (€2,800/mo) covers 75–100 bars. City breakeven requires <strong style="color:var(--text)">~16–20 active venues</strong> at viable ARPU.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">€1M ARR <span class="pill pill-warn" style="margin-left:6px">Threshold 3</span></div>
+      <div class="card-body">At base assumptions: <strong style="color:var(--text)">325 venues</strong> needed — 18% of NL bars. Achievable in 18–24 months with Amsterdam as the proving ground.</div>
+    </div>
+  </div>
+
+  <div class="callout"><strong>The four levers that matter:</strong> guests per venue per week (highest impact), average spend (drives ARPU most efficiently), commission rate (ceiling set by restaurant margins), and the SaaS floor fee (de-risks volume dependency). Moving two levers together — 55 guests/week + €14 avg spend — makes the model viable without radical changes to anything else.</div>
+
+  <div class="section-label" style="margin-bottom:.75rem">Restaurant viability</div>
+  <div class="prose"><p>Restaurants need a minimum batch size to make Bario worth their kitchen's time. The key ratio is bars per restaurant — with 5 restaurants per bar and only 3 bars per restaurant, each restaurant receives fewer than 2 orders per slot at base assumptions. The viable minimum is 6+ orders per slot, requiring either: fewer restaurants per bar (3, not 5), or more bars per restaurant (5+), or significantly higher guest volume per bar.</p></div>
+</section>
+
+<!-- 4. ROADMAP -->
+<section class="section visible" id="roadmap">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div class="section-info">
+      <div class="section-label">The path forward</div>
+      <div class="section-title">Phased roadmap</div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab(&#39;roadmap&#39;,&#39;p0&#39;,this)">Phase 0 — Pilot</button>
+    <button class="tab-btn" onclick="showTab(&#39;roadmap&#39;,&#39;p1&#39;,this)">Phase 1 — Prove the cell</button>
+    <button class="tab-btn" onclick="showTab(&#39;roadmap&#39;,&#39;p2&#39;,this)">Phase 2 — Productize</button>
+    <button class="tab-btn" onclick="showTab(&#39;roadmap&#39;,&#39;p3&#39;,this)">Phase 3 — Scale</button>
+  </div>
+
+  <div class="tab-panel active" id="roadmap-p0">
+    <div class="card" style="margin-bottom:.75rem"><div class="card-title">4–8 weeks · 2–3 bars · 1 restaurant · zero tech</div><div class="card-body">Do things that don't scale. Validate assumptions before building anything. Use WhatsApp and a Typeform — not a product.</div></div>
+    <div class="grid-2">
+      <div>
+        <div class="section-label" style="margin-bottom:.5rem">What to test</div>
+        <div class="accordion" id="a-p0-1"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-title">Will bars actively promote the cards?</span><div class="acc-badge"><div class="acc-icon">+</div></div></div><div class="acc-body"><div class="acc-inner">Bars have zero financial incentive right now. Watch whether staff actually put out menu cards and mention Bario to guests — or ignore it. This tells you whether the passive bar model is viable or whether a revenue share is essential from day one.</div></div></div>
+        <div class="accordion" id="a-p0-2"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-title">Will guests scan, choose a slot, and wait?</span><div class="acc-badge"><div class="acc-icon">+</div></div></div><div class="acc-body"><div class="acc-inner">The time slot model creates a hard abandonment cliff — someone who arrives at 19:15 just missed the slot. Track what percentage of scans result in completed orders. Track what happens to guests who miss a slot. If abandonment is high, the rolling slot model (order by :45 for the next hour) needs to be tested immediately.</div></div></div>
+        <div class="accordion" id="a-p0-3"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-title">Can the restaurant hit a fixed slot reliably?</span><div class="acc-badge"><div class="acc-icon">+</div></div></div><div class="acc-body"><div class="acc-inner">On-time delivery is existential. A late delivery on a Friday night poisons the bar relationship and the guest experience simultaneously. Track every delivery to the minute. If a restaurant misses more than 20% of slots in the first two weeks, replace them — this is an indicator of structural misfit, not bad luck.</div></div></div>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:.5rem">Go / no-go gates</div>
+        <div class="kv-list card">
+          <div class="kv-row"><span class="kv-k">Guest scan-to-order conversion</span><span class="kv-v good">≥ 12%</span></div>
+          <div class="kv-row"><span class="kv-k">On-time delivery rate</span><span class="kv-v good">≥ 80%</span></div>
+          <div class="kv-row"><span class="kv-k">Complaint / wrong order rate</span><span class="kv-v good">&lt; 10%</span></div>
+          <div class="kv-row"><span class="kv-k">Bar requests continuation</span><span class="kv-v good">≥ 1 of 3</span></div>
+          <div class="kv-row"><span class="kv-k">Repeat guest within 2 weeks</span><span class="kv-v good">≥ 1 observed</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="roadmap-p1">
+    <div class="card" style="margin-bottom:.75rem"><div class="card-title">2–4 months · 8–12 bars · 2–3 restaurants · minimal tech</div><div class="card-body">Prove the cell — one dense neighbourhood. This is where unit economics get pressure-tested for real.</div></div>
+    <div class="grid-2">
+      <div>
+        <div class="section-label" style="margin-bottom:.5rem">Key decisions</div>
+        <div class="accordion"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-title">Raise the commission to €3.50+</span><div class="acc-badge"><span class="pill pill-bad">Critical</span><div class="acc-icon">+</div></div></div><div class="acc-body"><div class="acc-inner">At €2.00/guest, you need ~3,900 venues for €1M MRR. You will only know the commission ceiling by testing it. Frame it to restaurants as guaranteed demand, not just commission. A restaurant earning €600/month reliably from Bario needs a concrete reason to resist a commission increase — test whether they have one.</div></div></div>
+        <div class="accordion"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-title">Give bars a revenue share</span><div class="acc-badge"><span class="pill pill-bad">Critical</span><div class="acc-icon">+</div></div></div><div class="acc-body"><div class="acc-inner">Even €0.50/meal changes bar staff behaviour from passive to active. Staff who earn something from promoting Bario will mention it to guests, keep cards visible, and handle distribution reliably. This is not a cost — it's the cheapest customer success investment available.</div></div></div>
+        <div class="accordion"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-title">Introduce the SaaS floor fee</span><div class="acc-badge"><span class="pill pill-warn">Important</span><div class="acc-icon">+</div></div></div><div class="acc-body"><div class="acc-inner">A €49–79/month venue fee creates a revenue floor independent of order volume. At 20 venues that's €980–1,580/month before a single meal is ordered. It also changes the bar relationship — a venue paying a monthly fee has made a commitment and is much less likely to churn passively.</div></div></div>
+        <div class="accordion"><div class="acc-header" onclick="toggleAcc(this)"><span class="acc-title">Add the rolling slot model</span><div class="acc-badge"><span class="pill pill-warn">Important</span><div class="acc-icon">+</div></div></div><div class="acc-body"><div class="acc-inner">Replace hard slot cutoffs with: order by :45 past the hour, delivery at the next hour. This eliminates the hard abandonment cliff for guests who arrive mid-slot. Test whether this changes conversion rate before investing in product — it can be done with a Typeform edit.</div></div></div>
+      </div>
+      <div>
+        <div class="section-label" style="margin-bottom:.5rem">Go / no-go gates</div>
+        <div class="kv-list card">
+          <div class="kv-row"><span class="kv-k">Revenue / venue / month</span><span class="kv-v good">≥ €800</span></div>
+          <div class="kv-row"><span class="kv-k">Restaurant renewal after month 1</span><span class="kv-v good">≥ 2 of 3</span></div>
+          <div class="kv-row"><span class="kv-k">Bars actively promoting</span><span class="kv-v good">Observed</span></div>
+          <div class="kv-row"><span class="kv-k">Repeat guest rate</span><span class="kv-v good">≥ 25%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="roadmap-p2">
+    <div class="card" style="margin-bottom:.75rem"><div class="card-title">3–5 months · 1 city · light tech stack · first hire</div><div class="card-body">Build only what earned its right. Three things and nothing else.</div></div>
+    <div class="grid-3">
+      <div class="card"><div class="card-title">Guest ordering flow</div><div class="card-body">Branded mobile web (no app). QR → menu → slot → name + confirmation. Stores guest data Bario owns.</div></div>
+      <div class="card"><div class="card-title">Restaurant dashboard</div><div class="card-body">Batched order list per slot, printable ticket, "ready" button. This is the SLA enforcement tool.</div></div>
+      <div class="card"><div class="card-title">Bar staff screen</div><div class="card-body">Tablet view: today's slots, incoming orders, names. Reduces distribution errors, makes staff feel in control.</div></div>
+    </div>
+    <div class="verdict warn">A 20-venue city at base assumptions generates ~€5.2k/month — below breakeven for a single ops hire. Either 35+ venues per city, or a SaaS fee layer, must exist before investing in full product. Don't build tech until the manual model is profitable per city.</div>
+  </div>
+
+  <div class="tab-panel" id="roadmap-p3">
+    <div class="card" style="margin-bottom:.75rem"><div class="card-title">6–12 months post-product · multi-city · Series A ready</div><div class="card-body">A city playbook that's repeatable. Minimum viable cell: 8–10 active bars, 2–3 restaurants, 400m delivery radius, 6 weeks to launch.</div></div>
+    <div class="section-label" style="margin-bottom:.75rem">What an investor wants to see</div>
+    <div class="kv-list card">
+      <div class="kv-row"><span class="kv-k">Revenue / venue / month</span><span class="kv-v good">≥ €1,200</span></div>
+      <div class="kv-row"><span class="kv-k">Monthly bar churn rate</span><span class="kv-v good">&lt; 5%</span></div>
+      <div class="kv-row"><span class="kv-k">Second city launched from playbook</span><span class="kv-v good">Demonstrated</span></div>
+      <div class="kv-row"><span class="kv-k">Contribution margin per order</span><span class="kv-v good">€3–5 clear path</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. INTERNATIONAL -->
+<section class="section visible" id="international">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div class="section-info">
+      <div class="section-label">Expansion</div>
+      <div class="section-title">International markets — critical evaluation</div>
+    </div>
+  </div>
+
+  <div class="prose"><p>The EU has approximately 661,000 bars and coffee shops. But addressability varies dramatically by market. Click a market to see the honest evaluation.</p></div>
+
+  <div class="country-grid" style="margin-top:1.5rem" id="country-grid"><div class="country-card" onclick="selectCountry(0)" id="cc-0">
+    <div class="cc-name">Belgium</div>
+    <div class="cc-sub">Go next — lowest friction</div>
+    <span class="pill pill-good">Go</span>
+  </div><div class="country-card" onclick="selectCountry(1)" id="cc-1">
+    <div class="cc-name">Germany</div>
+    <div class="cc-sub">Wait — large but complex</div>
+    <span class="pill pill-warn">Wait</span>
+  </div><div class="country-card" onclick="selectCountry(2)" id="cc-2">
+    <div class="cc-name">United Kingdom</div>
+    <div class="cc-sub">Wait — post-Brexit friction</div>
+    <span class="pill pill-warn">Wait</span>
+  </div><div class="country-card" onclick="selectCountry(3)" id="cc-3">
+    <div class="cc-name">France</div>
+    <div class="cc-sub">Avoid for now</div>
+    <span class="pill pill-bad">Avoid</span>
+  </div><div class="country-card" onclick="selectCountry(4)" id="cc-4">
+    <div class="cc-name">Spain</div>
+    <div class="cc-sub">Avoid — culture mismatch</div>
+    <span class="pill pill-bad">Avoid</span>
+  </div><div class="country-card active" onclick="selectCountry(5)" id="cc-5">
+    <div class="cc-name">Netherlands</div>
+    <div class="cc-sub">Home market — prove it here first</div>
+    <span class="pill pill-good">Go</span>
+  </div></div>
+  <div id="country-detail"><div class="card" style="margin-bottom:1rem">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+      <span>Netherlands <span style="color:var(--muted);font-weight:300">— 1.800 bars nationally</span></span>
+      <span class="pill pill-good">Go</span>
+    </div>
+    <div class="card-body" style="margin-top:.5rem">The proving ground. Amsterdam alone (420 bars, 168 capturable at 40%) represents ~40% of the entire NL revenue target at €1M ARR. Crack Amsterdam — specifically one dense neighbourhood first — before expanding anywhere. Everything learned in Amsterdam compounds nationally and then internationally.</div>
+  </div></div>
+
+  <div class="callout"><strong>The non-negotiable sequence:</strong> NL proves the model. Belgium proves it crosses a border. Germany proves it crosses a language. Anything beyond that — UK post-Brexit, France, southern Europe — requires either significantly higher ARPU or a product adaptation that goes beyond translation. Attempting more than three countries before €5M ARR is a capital efficiency mistake.</div>
+</section>
+
+<!-- 6. DEFENSIBILITY -->
+<section class="section visible" id="defensibility">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div class="section-info">
+      <div class="section-label">The competitive threat</div>
+      <div class="section-title">Building defensibility against Thuisbezorgd &amp; Uber Eats</div>
+    </div>
+  </div>
+
+  <div class="prose"><p>If Bario works visibly at scale, Thuisbezorgd will notice. They have restaurant relationships, a consumer app, and delivery infrastructure. Adding a "deliver to bars" feature is a product sprint for them. The question is not whether they'll try — it's what makes Bario the better choice even after they do.</p></div>
+
+  <div style="margin-top:1.5rem">
+    <div class="section-label" style="margin-bottom:.75rem">The five moats — strength rated</div>
+    <div id="moat-list"><div class="moat-item">
+    <div class="moat-header">
+      <span class="moat-name">Venue exclusivity contracts</span>
+      <span style="font-size:11px;color:var(--muted)">95/100</span>
+    </div>
+    <div class="moat-track" style="margin-bottom:4px">
+      <div class="moat-fill" style="width:95%;background:var(--good)"></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">Sign bars to 12-month exclusivity agreements in exchange for a reduced SaaS fee. Every month you delay signing exclusivity is a month a competitor can poach. Bars pay €29/month with exclusivity vs €79 without — the discount is your moat investment.</div>
+  </div><div class="moat-item">
+    <div class="moat-header">
+      <span class="moat-name">Demand-side bar-occasion data</span>
+      <span style="font-size:11px;color:var(--muted)">90/100</span>
+    </div>
+    <div class="moat-track" style="margin-bottom:4px">
+      <div class="moat-fill" style="width:90%;background:var(--good)"></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">After 12 months and 10,000+ orders, Bario knows what food people order when they're already drinking, at which venues, on which nights, in which slots. No platform has this data — it only exists because Bario operates at the intersection of bar and food. Compounds with every new venue and every new order.</div>
+  </div><div class="moat-item">
+    <div class="moat-header">
+      <span class="moat-name">Restaurant slot exclusivity</span>
+      <span style="font-size:11px;color:var(--muted)">65/100</span>
+    </div>
+    <div class="moat-track" style="margin-bottom:4px">
+      <div class="moat-fill" style="width:65%;background:var(--warn)"></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">Offer restaurants preferred-partner status in exchange for Bario slot exclusivity. Leverage is the guaranteed demand volume Bario provides. Weakens if platforms offer better economics — must be paired with demand data and volume commitments.</div>
+  </div><div class="moat-item">
+    <div class="moat-header">
+      <span class="moat-name">Operational depth — batching model</span>
+      <span style="font-size:11px;color:var(--muted)">60/100</span>
+    </div>
+    <div class="moat-track" style="margin-bottom:4px">
+      <div class="moat-fill" style="width:60%;background:var(--warn)"></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">The Bario model (batched orders, fixed slots, multi-restaurant rotation, no individual delivery address) is alien to platform infrastructure. Building this is a product rewrite for them, not a feature toggle. Time-limited moat — given 12–18 months, any platform can build it.</div>
+  </div><div class="moat-item">
+    <div class="moat-header">
+      <span class="moat-name">POS integration — switching cost</span>
+      <span style="font-size:11px;color:var(--muted)">55/100</span>
+    </div>
+    <div class="moat-track" style="margin-bottom:4px">
+      <div class="moat-fill" style="width:55%;background:var(--warn)"></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">A Bario integration embedded in a bar's till system creates switching costs no contract can match. A bar operator who manages food orders through their existing POS has no reason to switch to a platform requiring a separate system. Phase 2 investment.</div>
+  </div><div class="moat-item">
+    <div class="moat-header">
+      <span class="moat-name">Bar operator community &amp; brand</span>
+      <span style="font-size:11px;color:var(--muted)">35/100</span>
+    </div>
+    <div class="moat-track" style="margin-bottom:4px">
+      <div class="moat-fill" style="width:35%;background:var(--bad)"></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">Being the platform that genuinely understands bar operators. Run bar owner events, publish venue revenue benchmarks, create a community. Soft moat on its own — hard when combined with exclusivity contracts and SaaS switching costs.</div>
+  </div></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.5rem">
+    <div class="card">
+      <div class="card-title">Platform advantages — honest</div>
+      <div class="card-body" style="font-size:12px;line-height:1.65">
+        <div style="margin-bottom:6px"><span class="pill pill-bad" style="margin-right:6px">Theirs</span>Deep restaurant relationships in every city</div>
+        <div style="margin-bottom:6px"><span class="pill pill-bad" style="margin-right:6px">Theirs</span>Installed consumer apps with millions of users</div>
+        <div style="margin-bottom:6px"><span class="pill pill-bad" style="margin-right:6px">Theirs</span>Own courier networks — logistics solved</div>
+        <div><span class="pill pill-bad" style="margin-right:6px">Theirs</span>Brand recognition with guests</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Bario advantages — honest</div>
+      <div class="card-body" style="font-size:12px;line-height:1.65">
+        <div style="margin-bottom:6px"><span class="pill pill-good" style="margin-right:6px">Ours</span>Batched slot model — alien to platform infrastructure</div>
+        <div style="margin-bottom:6px"><span class="pill pill-good" style="margin-right:6px">Ours</span>Bar-occasion demand data no platform has</div>
+        <div style="margin-bottom:6px"><span class="pill pill-good" style="margin-right:6px">Ours</span>Full focus — this is the whole business, not a feature</div>
+        <div><span class="pill pill-good" style="margin-right:6px">Ours</span>First-mover exclusivity window — now</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict warn" style="margin-top:1rem">The window to make Bario's advantages structural is 12–18 months. Every bar signed to an exclusivity contract in that window is a bar a platform would have to wait 12 months to approach. The most critical action: sign exclusivity contracts with every active venue before month 12.</div>
+
+  <div class="callout" style="margin-top:1rem"><strong>The likely long-term outcome:</strong> At meaningful NL + Belgium scale with exclusivity contracts and compounding data, the most probable platform response is acquisition rather than competition. That is not a failure — it is probably the optimal exit.</div>
+</section>
+
+<!-- 7. POS & LOYALTY -->
+<section class="section visible" id="pos">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div class="section-info">
+      <div class="section-label">Infrastructure layer</div>
+      <div class="section-title">POS integration &amp; loyalty</div>
+    </div>
+  </div>
+
+  <div class="prose"><p>The POS integration is where Bario stops being a food ordering layer and starts becoming bar operating infrastructure. That's a fundamentally different business with fundamentally different defensibility.</p></div>
+
+  <div class="tab-bar" style="margin-top:1.5rem">
+    <button class="tab-btn active" onclick="showTab(&#39;pos&#39;,&#39;pos-why&#39;,this)">Why it matters</button>
+    <button class="tab-btn" onclick="showTab(&#39;pos&#39;,&#39;pos-flows&#39;,this)">Data flows</button>
+    <button class="tab-btn" onclick="showTab(&#39;pos&#39;,&#39;pos-landscape&#39;,this)">NL/BE POS landscape</button>
+    <button class="tab-btn" onclick="showTab(&#39;pos&#39;,&#39;pos-loyalty&#39;,this)">Loyalty opportunity</button>
+  </div>
+
+  <div class="tab-panel active" id="pos-pos-why">
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">What the write direction gives bars</div>
+        <div class="kv-list" style="margin-top:.75rem">
+          <div class="kv-row"><span class="kv-k">Food orders in existing POS screen</span><span class="kv-v good">Day 1 value</span></div>
+          <div class="kv-row"><span class="kv-k">Slot countdown visible at till</span><span class="kv-v good">Day 1 value</span></div>
+          <div class="kv-row"><span class="kv-k">Combined drink + food shift report</span><span class="kv-v good">Day 1 value</span></div>
+          <div class="kv-row"><span class="kv-k">No extra tablet or device</span><span class="kv-v good">Ops simplicity</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">What the read direction gives Bario</div>
+        <div class="kv-list" style="margin-top:.75rem">
+          <div class="kv-row"><span class="kv-k">Dwell time effect — quantified</span><span class="kv-v warn">After 6–8 weeks</span></div>
+          <div class="kv-row"><span class="kv-k">Best slot by drink revenue uplift</span><span class="kv-v warn">After 4–8 weeks</span></div>
+          <div class="kv-row"><span class="kv-k">Cross-venue benchmarking</span><span class="kv-v warn">After 30+ venues</span></div>
+          <div class="kv-row"><span class="kv-k">Restaurant dwell comparison data</span><span class="kv-v warn">After 8+ venues</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="callout"><strong>The sequencing rule:</strong> Build the write direction first — it's simpler technically, immediately valuable operationally, and creates the switching cost from week one. Build the read direction second, starting with the simplest possible version: a weekly email to the bar owner showing drink revenue on Bario nights vs non-Bario nights. Only once that number is consistently meaningful do you invest in the sophisticated analytical layer.</div>
+  </div>
+
+  <div class="tab-panel" id="pos-pos-flows">
+    <div class="prose" style="margin-bottom:1rem"><p>Every data signal — what moves, in which direction, and what it unlocks. The read signals build the data moat. The write signals create the switching cost.</p></div>
+    <table>
+      <thead><tr><th>Signal</th><th>Direction</th><th>What it enables</th><th>Priority</th></tr></thead>
+      <tbody>
+        <tr><td>Drink order events</td><td style="color:var(--accent)">POS → Bario</td><td>Dwell time correlation, slot performance analysis</td><td><span class="pill pill-bad">Core</span></td></tr>
+        <tr><td>Tab open / close timestamps</td><td style="color:var(--accent)">POS → Bario</td><td>Guest arrival / departure proxy — dwell calculation</td><td><span class="pill pill-bad">Core</span></td></tr>
+        <tr><td>Hourly turnover</td><td style="color:var(--accent)">POS → Bario</td><td>Real traffic pattern — validates guest count assumptions</td><td><span class="pill pill-bad">Core</span></td></tr>
+        <tr><td>Product mix (beer / cocktail)</td><td style="color:var(--accent)">POS → Bario</td><td>Average spend signal — cocktail bars vs beer bars differ</td><td><span class="pill pill-warn">Enrichment</span></td></tr>
+        <tr><td>Incoming food order notification</td><td style="color:var(--good)">Bario → POS</td><td>Staff see orders in their existing screen — no extra device</td><td><span class="pill pill-bad">Build first</span></td></tr>
+        <tr><td>Slot countdown timer</td><td style="color:var(--good)">Bario → POS</td><td>Staff prep trigger — reduces "where's my food?" interactions</td><td><span class="pill pill-bad">Build first</span></td></tr>
+        <tr><td>Batch ready signal</td><td style="color:var(--good)">Bario → POS</td><td>Restaurant confirms packed — bar staff know to expect delivery</td><td><span class="pill pill-warn">Phase 2</span></td></tr>
+        <tr><td>Combined shift report</td><td style="color:var(--good)">Bario → POS</td><td>Drink + food revenue in one place — owner sees total picture</td><td><span class="pill pill-warn">Phase 2</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-panel" id="pos-pos-landscape">
+    <div class="prose" style="margin-bottom:1rem"><p>Lightspeed is well-known internationally but is <em>not</em> the dominant bar POS in the Netherlands. The real market is more fragmented — and dominated by systems you won't find in English review sites.</p></div>
+    <table>
+      <thead><tr><th>System</th><th>Reality in NL/BE bars</th><th>Integration priority</th></tr></thead>
+      <tbody>
+        <tr><td>Untill</td><td>Most widely used hospitality POS in NL + BE. Operates deliberately under the radar via certified resellers. Present in independent bars, bruine kroegen, hotel bars.</td><td><span class="pill pill-bad">Priority 1</span></td></tr>
+        <tr><td>MplusKASSA</td><td>Self-reported market leader in NL; 120,000+ users across NL and BE. Broad coverage including smaller independent venues.</td><td><span class="pill pill-bad">Priority 2</span></td></tr>
+        <tr><td>Lightspeed</td><td>Premium tier — restaurants, specialty coffee, chains. Less common in the independent bar segment Bario targets. Strong API.</td><td><span class="pill pill-warn">Priority 3</span></td></tr>
+        <tr><td>DISH POS / Eijsink</td><td>Dutch-native, common in mid-size hospitality. Reseller-driven like Untill. Worth a partnership conversation.</td><td><span class="pill pill-warn">Priority 4</span></td></tr>
+      </tbody>
+    </table>
+    <div class="verdict warn">The fragmentation means a single integration covers only a fraction of bars. The smart approach: a middleware layer that normalises data from any POS rather than building four separate integrations from scratch.</div>
+  </div>
+
+  <div class="tab-panel" id="pos-pos-loyalty">
+    <div class="prose" style="margin-bottom:1rem"><p>Only 17% of nightlife businesses have a digital loyalty programme — yet regular customers spend 38% more. The gap is real but the reasons bars don't run loyalty are structural, not lazy.</p></div>
+    <div class="grid-2" style="margin-bottom:1rem">
+      <div class="card">
+        <div class="card-title">Why bars don't do loyalty</div>
+        <div class="card-body" style="font-size:12px;line-height:1.65">
+          <div style="margin-bottom:6px"><strong style="color:var(--text)">Drinks are anonymous.</strong> No natural moment to identify a guest across a three-hour visit with five rounds ordered.</div>
+          <div style="margin-bottom:6px"><strong style="color:var(--text)">Owners are time-poor.</strong> Configuring, training, promoting and analysing a loyalty programme requires marketing capability most bar owners don't have.</div>
+          <div style="margin-bottom:6px"><strong style="color:var(--text)">Rewards don't transfer.</strong> "Free drink after 10 visits" creates margin problems and liability questions that coffee stamps don't.</div>
+          <div><strong style="color:var(--text)">Social loyalty already exists.</strong> Regulars return because they know the bartender — not because of points. A card can feel transactional and undermine that warmth.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">What Bario already solves</div>
+        <div class="card-body" style="font-size:12px;line-height:1.65">
+          <div style="margin-bottom:6px"><strong style="color:var(--text)">The identity problem is solved.</strong> Food ordering requires a name (and optionally phone number). This is the identity anchor loyalty needs — without asking guests to download anything.</div>
+          <div style="margin-bottom:6px"><strong style="color:var(--text)">The touchpoint exists.</strong> The order confirmation moment is a natural place to enrol guests in a programme ("order food 3x, your 4th is free") entirely within the Bario flow.</div>
+          <div><strong style="color:var(--text)">The hard part is done.</strong> Bario doesn't need to build a loyalty platform — it needs to add a visit counter and a trigger within an existing ordering flow. The complexity is already solved.</div>
+        </div>
+      </div>
+    </div>
+    <div class="verdict warn">The opportunity is real but bounded. Bario can offer food loyalty immediately (within the order flow). Full bar loyalty — including drink spend — only becomes possible once the POS integration is live. Build food loyalty in Phase 1; build bar-wide loyalty in Phase 2 once tab data is available.</div>
+  </div>
+</section>
+
+<footer>
+  <span>Bario — internal strategic briefing</span>
+  <span>Generated from full analysis session · All figures modelled, not empirical</span>
+</footer>
+
+<div class="scroll-top visible" id="scroll-top" onclick="window.scrollTo({top:0,behavior:&#39;smooth&#39;})">↑</div>
+
+<script>
+// NAV ACTIVE
+function setActive(el) {
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// SCROLL SPY
+window.addEventListener('scroll', () => {
+  const st = document.getElementById('scroll-top');
+  st.classList.toggle('visible', window.scrollY > 400);
+
+  const sections = document.querySelectorAll('section[id]');
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  document.querySelectorAll('.nav-link').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+
+  // reveal animations
+  document.querySelectorAll('.section').forEach(s => {
+    if (s.getBoundingClientRect().top < window.innerHeight * 0.85) s.classList.add('visible');
+  });
+});
+
+// trigger on load
+setTimeout(() => {
+  document.querySelectorAll('.section').forEach(s => {
+    if (s.getBoundingClientRect().top < window.innerHeight * 0.85) s.classList.add('visible');
+  });
+}, 100);
+
+// ACCORDION
+function toggleAcc(header) {
+  const body = header.nextElementSibling;
+  const isOpen = header.classList.contains('open');
+  header.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+}
+
+// TABS
+function showTab(group, id, btn) {
+  document.querySelectorAll(`[id^="${group}-"]`).forEach(p => p.classList.remove('active'));
+  document.getElementById(`${group}-${id}`).classList.add('active');
+  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ECONOMICS SLIDER
+function fmt(n) { return '€' + Math.round(n).toLocaleString('nl-NL'); }
+function updateEcon() {
+  const guests = +document.getElementById('sl-guests').value;
+  const spend  = +document.getElementById('sl-spend').value;
+  const pct    = +document.getElementById('sl-pct').value / 100;
+  const fixed  = +document.getElementById('sl-fixed').value;
+  const saas   = +document.getElementById('sl-saas').value;
+
+  document.getElementById('sv-guests').textContent = guests;
+  document.getElementById('sv-spend').textContent  = '€' + spend;
+  document.getElementById('sv-pct').textContent    = Math.round(pct*100) + '%';
+  document.getElementById('sv-fixed').textContent  = '€' + fixed.toFixed(2);
+  document.getElementById('sv-saas').textContent   = '€' + saas;
+
+  const perGuest = spend * pct + fixed;
+  const perMonth = perGuest * guests * 4.33 + saas;
+  const opsCost  = 2800 / 87;
+  const contrib  = perMonth - (0.30 * guests * 4.33) - opsCost;
+  const venuesARR = Math.ceil((1000000/12) / perMonth);
+  const mktShare  = Math.round(venuesARR / 1800 * 100);
+
+  const r = document.getElementById('econ-results');
+  r.innerHTML = [
+    { val: '€' + perGuest.toFixed(2), lbl: 'Revenue / guest', cls: perGuest >= 2.5 ? 'good' : perGuest >= 1.5 ? 'warn' : 'bad' },
+    { val: fmt(perMonth), lbl: 'Revenue / venue / month', cls: perMonth >= 400 ? 'good' : perMonth >= 200 ? 'warn' : 'bad' },
+    { val: fmt(Math.max(0,contrib)), lbl: 'Net contribution / venue', cls: contrib >= 150 ? 'good' : contrib >= 0 ? 'warn' : 'bad' },
+    { val: venuesARR + ' venues', lbl: mktShare + '% of NL market for €1M ARR', cls: mktShare <= 20 ? 'good' : mktShare <= 50 ? 'warn' : 'bad' },
+  ].map(m => `<div class="result-card"><div class="result-val ${m.cls}">${m.val}</div><div class="result-lbl">${m.lbl}</div></div>`).join('');
+}
+updateEcon();
+
+// RISKS DATA
+const RISKS = [
+  { title: 'Unit economics are brutally thin at base assumptions', sev: 'bad', body: '<strong>The problem:</strong> At €2.00/guest and 30 guests/week, each venue generates ~€258/month. You need 325 venues just to reach €1M ARR — before any ops, tech, or marketing cost. <strong>The resolution:</strong> Two levers together fix it — 55 guests/week + €14 avg spend pushes each venue to €530+/month, cutting the venue count needed nearly in half. Target bars where the average guest already spends €14+ (cocktail bars, premium cafés) rather than student venues.' },
+  { title: 'You don\'t control the critical experience', sev: 'bad', body: '<strong>The problem:</strong> The meal arrives at the bar. Bar staff distribute it. The restaurant cooked it. You own the QR code. If food is late, cold, or wrong — the guest blames the experience and the bar blames Bario. You have operational responsibility but no operational control. <strong>The resolution:</strong> Contractual SLAs with restaurants (late by >15min = partial refund from restaurant). A reliability score per restaurant visible to you. Guest feedback after every order — one question. Restaurants below threshold get replaced, not managed.' },
+  { title: 'The bar has no skin in the game', sev: 'warn', body: '<strong>The problem:</strong> Bars don\'t pay you and don\'t actively sell. They put out a card and that\'s it. No financial incentive means passive participation, invisible menu cards, and zero-cost churn. <strong>The resolution:</strong> Revenue share of €0.50–1.00 per meal turns bars from passive hosts into active promoters. Combined with a SaaS fee (€49–79/month), bars have both an incentive and a commitment. Switching cost goes from zero to meaningful.' },
+  { title: 'The time slot model creates abandonment', sev: 'warn', body: '<strong>The problem:</strong> Someone who arrives at 19:15 just missed the slot and waits until 20:00 — or leaves. In a social setting, one frustrated experience spreads quickly. <strong>The resolution:</strong> Rolling slot model: order by :45 past the hour, delivery at the next full hour. Preserves the batching model while eliminating the hard cutoff. Test this with a Typeform edit before building any product.' },
+  { title: 'Density is a prerequisite, not an outcome', sev: 'warn', body: '<strong>The problem:</strong> The model only works if there\'s a nearby restaurant willing to partner, in a neighbourhood with enough bars to make restaurant partnerships worthwhile, with enough guests per venue to justify coordination. A three-sided cold start problem. <strong>The resolution:</strong> Start in one hyper-dense neighbourhood. Amsterdam\'s Jordaan, Pijp, or Leidseplein areas have the bar density and walkability required. Get 8–10 bars and 2 restaurants operational within 400m before considering anywhere else.' },
+  { title: 'Differentiation is thin once it works', sev: 'warn', body: '<strong>The problem:</strong> If the model gains traction, what stops Thuisbezorgd from launching a "bar delivery" vertical? They have restaurant relationships, consumer apps, and delivery infrastructure. <strong>The resolution:</strong> See Section 06 — Defensibility. The short version: exclusivity contracts with bars (signed before you\'re visible enough to attract platform attention), demand data that compounds with every order, and a POS integration that makes Bario operational infrastructure rather than a feature layer.' },
+];
+
+const riskContainer = document.getElementById('risk-accordions');
+RISKS.forEach((r, i) => {
+  riskContainer.innerHTML += `
+    <div class="accordion">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <span class="acc-title">${r.title}</span>
+        <div class="acc-badge"><span class="pill pill-${r.sev}">${r.sev === 'bad' ? 'Critical' : 'Important'}</span><div class="acc-icon">+</div></div>
+      </div>
+      <div class="acc-body"><div class="acc-inner">${r.body}</div></div>
+    </div>`;
+});
+
+// COUNTRY DATA
+const COUNTRIES = [
+  { name: 'Belgium', sub: 'Go next — lowest friction', verdict: 'good', bars: 14000,
+    body: 'Near-identical bar culture to NL. Flemish market (Brussels, Antwerp, Ghent) transfers almost verbatim. 14,000 bars nationally — 8x the NL market. Belgian origin of Lightspeed adds familiarity. Main risk: Wallonia (French-speaking) is a separate market requiring separate comms — don\'t treat Belgium as one country.' },
+  { name: 'Germany', sub: 'Wait — large but complex', verdict: 'warn', bars: 75000,
+    body: '75,000 bars — the biggest opportunity in Europe. But: German GmbH formation takes 3–5 months and costs €15–25k. Lieferando (Just Eat) has deep restaurant relationships. Berlin, Munich, and Hamburg are three separate markets with different cultures. German dinner timing (18:00–19:30) may reduce uptake on later slots. Go here after NL + Belgium are profitable.' },
+  { name: 'United Kingdom', sub: 'Wait — post-Brexit friction', verdict: 'warn', bars: 45000,
+    body: 'Average spend is higher (£14+ in London) and English eliminates language barriers. But: post-Brexit means a separate legal entity, separate VAT, separate employment law, and GBP/EUR currency exposure on every transaction. London pubs that serve food dominate — the "bar without a kitchen" segment is smaller than in NL. A compelling market but structurally expensive to enter.' },
+  { name: 'France', sub: 'Avoid for now', verdict: 'bad', bars: 38000,
+    body: 'French restaurant culture treats food with a formality that directly conflicts with Bario\'s model — many restaurateurs would decline to send delivery food to a bar. French labour law creates structural overhead. Paris is dominated by Uber Eats and Deliveroo with aggressive restaurant contracts. Lyon and Bordeaux are potential back-door entries if France is ever pursued.' },
+  { name: 'Spain', sub: 'Avoid — culture mismatch', verdict: 'bad', bars: 120000,
+    body: 'The core premise of Bario breaks in Spain: virtually every bar already serves tapas or pintxos. The addressable "bar without a kitchen" segment may be under 5% of total. Spanish dinner timing (21:00–23:00) means delivery slots land squarely in restaurant peak hours — the off-peak rationale disappears. Glovo has aggressive exclusivity deals. Avoid.' },
+  { name: 'Netherlands', sub: 'Home market — prove it here first', verdict: 'good', bars: 1800,
+    body: 'The proving ground. Amsterdam alone (420 bars, 168 capturable at 40%) represents ~40% of the entire NL revenue target at €1M ARR. Crack Amsterdam — specifically one dense neighbourhood first — before expanding anywhere. Everything learned in Amsterdam compounds nationally and then internationally.' },
+];
+
+const grid = document.getElementById('country-grid');
+const detail = document.getElementById('country-detail');
+COUNTRIES.forEach((c, i) => {
+  grid.innerHTML += `<div class="country-card" onclick="selectCountry(${i})" id="cc-${i}">
+    <div class="cc-name">${c.name}</div>
+    <div class="cc-sub">${c.sub}</div>
+    <span class="pill pill-${c.verdict}">${c.verdict === 'good' ? 'Go' : c.verdict === 'warn' ? 'Wait' : 'Avoid'}</span>
+  </div>`;
+});
+selectCountry(5);
+function selectCountry(i) {
+  document.querySelectorAll('.country-card').forEach(c => c.classList.remove('active'));
+  document.getElementById('cc-' + i).classList.add('active');
+  const c = COUNTRIES[i];
+  detail.innerHTML = `<div class="card" style="margin-bottom:1rem">
+    <div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+      <span>${c.name} <span style="color:var(--muted);font-weight:300">— ${c.bars.toLocaleString('nl-NL')} bars nationally</span></span>
+      <span class="pill pill-${c.verdict}">${c.verdict === 'good' ? 'Go' : c.verdict === 'warn' ? 'Wait' : 'Avoid'}</span>
+    </div>
+    <div class="card-body" style="margin-top:.5rem">${c.body}</div>
+  </div>`;
+}
+
+// MOATS DATA
+const MOATS = [
+  { name: 'Venue exclusivity contracts', strength: 95, body: 'Sign bars to 12-month exclusivity agreements in exchange for a reduced SaaS fee. Every month you delay signing exclusivity is a month a competitor can poach. Bars pay €29/month with exclusivity vs €79 without — the discount is your moat investment.' },
+  { name: 'Demand-side bar-occasion data', strength: 90, body: 'After 12 months and 10,000+ orders, Bario knows what food people order when they\'re already drinking, at which venues, on which nights, in which slots. No platform has this data — it only exists because Bario operates at the intersection of bar and food. Compounds with every new venue and every new order.' },
+  { name: 'Restaurant slot exclusivity', strength: 65, body: 'Offer restaurants preferred-partner status in exchange for Bario slot exclusivity. Leverage is the guaranteed demand volume Bario provides. Weakens if platforms offer better economics — must be paired with demand data and volume commitments.' },
+  { name: 'Operational depth — batching model', strength: 60, body: 'The Bario model (batched orders, fixed slots, multi-restaurant rotation, no individual delivery address) is alien to platform infrastructure. Building this is a product rewrite for them, not a feature toggle. Time-limited moat — given 12–18 months, any platform can build it.' },
+  { name: 'POS integration — switching cost', strength: 55, body: 'A Bario integration embedded in a bar\'s till system creates switching costs no contract can match. A bar operator who manages food orders through their existing POS has no reason to switch to a platform requiring a separate system. Phase 2 investment.' },
+  { name: 'Bar operator community & brand', strength: 35, body: 'Being the platform that genuinely understands bar operators. Run bar owner events, publish venue revenue benchmarks, create a community. Soft moat on its own — hard when combined with exclusivity contracts and SaaS switching costs.' },
+];
+
+const moatList = document.getElementById('moat-list');
+MOATS.forEach(m => {
+  moatList.innerHTML += `<div class="moat-item">
+    <div class="moat-header">
+      <span class="moat-name">${m.name}</span>
+      <span style="font-size:11px;color:var(--muted)">${m.strength}/100</span>
+    </div>
+    <div class="moat-track" style="margin-bottom:4px">
+      <div class="moat-fill" style="width:${m.strength}%;background:${m.strength >= 80 ? 'var(--good)' : m.strength >= 55 ? 'var(--warn)' : 'var(--bad)'}"></div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);line-height:1.5">${m.body}</div>
+  </div>`;
+});
+</script>
+
+
+</body></html>
